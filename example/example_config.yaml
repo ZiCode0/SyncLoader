@@ -1,0 +1,10 @@
+main:
+    data_folder: "data/"
+    remote_file_name_format: "{station}_{year}-{month}-{day}.zip"
+
+stations:
+    pet:
+        ip: 1.1.1.1
+        login: login
+        pass: pass
+        target_folder: /mnt/data/files/
