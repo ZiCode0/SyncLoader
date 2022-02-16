@@ -1,7 +1,7 @@
 import os
 import yaml
 
-__root_folder__ = os.getcwd()
+__root_folder__ = os.path.split(os.path.split(__file__)[0])[0]
 
 
 class YamlConfig:
