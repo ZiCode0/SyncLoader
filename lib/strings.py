@@ -3,7 +3,7 @@ __program_version__ = 1.0
 
 
 class Console:
-    program_start = f'Program {__project_name__} v.{__program_version__}started. '
+    program_start = f'Program {__project_name__} v.{__program_version__} started. '
     format_date_range = '{date_from} - {date_to}'
     info_prepare_download_info = 'Selected station <{station}>, range: {dates} ({days} days)..'
     info_download_file_progress = 'Downloading file <{file}> in progress..'
