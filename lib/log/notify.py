@@ -5,13 +5,17 @@ from notifiers.logging import NotificationHandler
 from read_env import read_env
 from lib import strings
 
+try:
+    read_env()
+except:
+    pass
 
-read_env()
-notify_vars = {'mail_login': os.environ["GMAIL_LOGIN"],
-               'mail_pass': os.environ["GMAIL_PASSWORD"],
-               'mail_to': 'zedcode.05@gmail.com',
-               'tg_token': os.environ["TELEGRAM_TOKEN"],
-               'tg_id': os.environ["TELEGRAM_ID"]}
+notify_vars = {'mail_login': os.getenv("GMAIL_LOGIN", default=""),
+               'mail_pass': os.getenv("GMAIL_PASSWORD", default=""),
+               'mail_to':  os.getenv("MAIL_TO", default=""),
+               'tg_token': os.getenv("TELEGRAM_TOKEN", default=""),
+               'tg_id': os.getenv("TELEGRAM_ID", default="")
+               }
 
 
 class TelegramNotificationHandler(NotificationHandler):
@@ -62,14 +66,15 @@ def tg_emit(head):
 
 
 def add_gmail_sender(logger):
-    params = {
-        "username": notify_vars.get('mail_login'),
-        "password": notify_vars.get('mail_pass'),
-        "to": notify_vars.get('mail_to'),
-        "subject": strings.Report.mail_subject
-    }
-    handler = NotificationHandler("gmail", defaults=params)
-    logger.add(handler, level="ERROR")
+    if notify_vars['mail_login'] != "" and notify_vars['mail_pass'] != "" and notify_vars['mail_to'] != "":
+        params = {
+            "username": notify_vars.get('mail_login'),
+            "password": notify_vars.get('mail_pass'),
+            "to": notify_vars.get('mail_to'),
+            "subject": strings.Report.mail_subject
+        }
+        handler = NotificationHandler("gmail", defaults=params)
+        logger.add(handler, level="ERROR")
     return logger
 
 
